@@ -1,0 +1,3 @@
+In Python you can learn how to use lists.
+In Python you can learn how to use dictionary.
+In Python you can learn how to use functions.
