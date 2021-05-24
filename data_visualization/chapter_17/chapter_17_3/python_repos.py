@@ -57,27 +57,6 @@ def main():
         chart.render_to_file('python_repos.svg')
     else:
         print("Connection refused")
-    
-    # 17.1.5研究第一个仓库
-    """repo_dict = repo_dicts[0]
-    print("\nSelected information about first repository:")
-    print('Name:', repo_dict['name'])
-    # 键login获取所有者的登录名
-    print('Owner:', repo_dict['owner']['login'])
-    print('Stars:', repo_dict['stargazers_count'])
-    print('Repository:', repo_dict['html_url'])
-    print('Created:', repo_dict['created_at'])
-    print('Updated:', repo_dict['updated_at'])
-    print('Description:', repo_dict['description'])"""
-
-    # 17.1.6
-    """print("\nSelected information about each repository:")
-    for repo_dict in repo_dicts:
-        print('\nName:', repo_dict['name'])
-        print('Owner:', repo_dict['owner']['login'])
-        print('Stars:', repo_dict['stargazers_count'])
-        print('Repository:', repo_dict['html_url'])
-        print('Description:', repo_dict['description'])"""
 
 if __name__ == '__main__':
     main()
