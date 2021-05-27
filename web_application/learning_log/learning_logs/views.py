@@ -12,3 +12,11 @@ def topics(request):
     # 要发送给模板的上下文（一个字典）
     context = {'topics': topics}
     return render(request, 'learning_logs/topics.html', context)
+
+def topic(request, topic_id):
+    """显示单个主题及其所有的条目"""
+    #topic_id = int(request.GET.get(topic_id))
+    topic = Topic.objects.get(id=topic_id)
+    entries = topic.entry_set.order_by('-date_added')
+    context = {'topic': topic, 'entries': entries}
+    return render(request, 'learning_logs/topic.html', context)
