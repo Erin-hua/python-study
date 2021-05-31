@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # 第三方应用程序
+    'bootstrap3',
+
     # 我的应用程序
     'learning_logs',
     'users',
@@ -132,4 +135,12 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # 我的设置
+# 如果用户未登录就重定向到下面的路径
 LOGIN_URL = '/users/login/'
+
+# django-bootstrap3的设置
+"""包含jQuery(一个JavaScript库)，使得可以使用Bootstrap模板
+提供的一些交互式元素，这些代码使得无需手工下载jQuery并将其放到正确的地方。"""
+BOOTSTRAP3 = {
+    'include_jquery': True,
+    } 
