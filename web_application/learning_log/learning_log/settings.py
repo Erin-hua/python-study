@@ -9,7 +9,8 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import os # 部署到服务器上添加的
+import dj_database_url
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,11 +24,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-3g4m_83+3-1qr*u-z5&u==v9hpa@=n8#ym($au1#&fo+szqm3w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG = False
+# 页面会显示错误的原因，开发用
+DEBUG = True
+#DEBUG = False
 
 #ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['*']
+#ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -63,7 +66,9 @@ ROOT_URLCONF = 'learning_log.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        #'DIRS': [],
+        # 让Django在根模板目录中查找错误页面模板
+        'DIRS': [os.path.join(BASE_DIR, 'learning_log/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -143,4 +148,30 @@ LOGIN_URL = '/users/login/'
 提供的一些交互式元素，这些代码使得无需手工下载jQuery并将其放到正确的地方。"""
 BOOTSTRAP3 = {
     'include_jquery': True,
-    } 
+    }
+
+"""非常重要！！！创建一个文件夹在learning_log目录下，放置静态资源
+而不是放在if里面，否则会报错"""
+STATIC_ROOT = 'staticfiles'
+# Heroku设置
+if os.getcwd() == '/app':
+    DATABASES = {
+         'default': dj_database_url.config(default='postgres://localhost' )
+    }
+
+    # 让request.is_secure()承认X-Forwarded-Proto头
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+    # 支持所有的主机头（host header）
+    #ALLOWED_HOSTS = ['*'] 
+    # 只允许Heroku托管这个项目
+    ALLOWED_HOSTS = ['erin-learning.herokuapp.com'] 
+    # 页面不会显示具体错误的地方
+    DEBUG = False
+
+    # 静态资源配置
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    #STATIC_ROOT = 'staticfiles'
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'static'),
+    )
